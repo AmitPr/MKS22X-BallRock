@@ -87,11 +87,29 @@ class Ball extends Thing implements Moveable {
       }
     }
     if(mode == 2){
-      //x+=xv;
+      x+=xv;
+      if(x>width || x<0){
+        xv*=-1;
+      }
       y-=yv;
-      yv-=0.2;
+      if(yv>-16){
+        yv-=0.2;
+      }
+      
       if(y>height){
-        yv*=-0.6;
+        yv*=-0.9;
+      }
+    }
+    if(mode == 3){
+      xv-=0.5-random(1);
+      yv-=0.5-random(1);
+      x+=xv;
+      if(x>width || x<0){
+        xv*=-1;
+      }
+      y+=yv;
+      if(y>height || y<0){
+        yv*=-1;
       }
     }
   }
