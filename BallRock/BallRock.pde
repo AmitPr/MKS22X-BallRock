@@ -24,6 +24,10 @@ class Rock extends Thing {
   void display() {
     fill(75, 100, 75);
     ellipse(x,y,40,20);
+    for(int i=0;i<10;i++){
+      fill(75+random(-6,6),100+random(-6,6),75+random(-6,6));
+      ellipse(x+random(-20,20),y+random(-10,10),random(-10,10),random(-10,10));
+    }
   }
 }
 
