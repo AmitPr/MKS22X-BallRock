@@ -17,83 +17,37 @@ abstract class Thing implements Displayable {
 }
 
 class Rock extends Thing {
-  float rMod,gMod,bMod,xMod,yMod,wid,hig;
   Rock(float x, float y) {
     super(x, y);
-    rMod=random(-6,6);gMod=random(-6,6);bMod=random(-6,6);
-    xMod=random(-20,20);yMod=random(-10,10);
-    wid=random(-10,10);hig=random(-10,10);
   }
+
   void display() {
-    fill(75, 100, 75);
-    ellipse(x,y,40,20);
-    for(int i=0;i<1;i++){
-      fill(75+rMod,100+gMod,75+bMod);
-      ellipse(x+xMod,y+yMod,wid,hig);
-    }
+    /* ONE PERSON WRITE THIS */
   }
 }
 
 public class LivingRock extends Rock implements Moveable {
-  
-  float circleRadius = random(50, 200);
-  float timeMultiplier = random(0.001, 0.003);
-  
   LivingRock(float x, float y) {
     super(x, y);
   }
   void move() {
-    //x += random(-3, 3);
-    //y += random(-3, 3);
-        
-    x = width / 2 + (circleRadius * cos(timeMultiplier * millis()));
-    y = height / 2 + (circleRadius * sin(timeMultiplier * millis()));
+    x += random(-10, 10);
+    y += random(-10, 10);
   }
 }
 
 class Ball extends Thing implements Moveable {
-  int mode;
-  float xv,yv;
   Ball(float x, float y) {
 
     super(x, y);
-    mode=int(random(3));
-    xv = 1-random(2);
-    yv = 1-random(2);
   }
 
   void display() {
-    ellipseMode(RADIUS);
-    noStroke();
-    for(int i = 50; i >0; i--){
-      fill(5*i,255-(5*i),0);
-      ellipse(x,y,i,i);
-    }
+    /* ONE PERSON WRITE THIS */
   }
 
   void move() {
-    if(mode == 0){
-      x+=1-random(2);
-      y+=1-random(2);
-    }
-    if(mode == 1){
-      x+=xv;
-      if(x>width || x<0){
-        xv*=-1;
-      }
-      y+=yv;
-      if(y>height || y<0){
-        yv*=-1;
-      }
-    }
-    if(mode == 2){
-      //x+=xv;
-      y-=yv;
-      yv-=0.2;
-      if(y>height){
-        yv*=-0.6;
-      }
-    }
+    /* ONE PERSON WRITE THIS */
   }
 }
 
