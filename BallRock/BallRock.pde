@@ -57,7 +57,7 @@ class Ball extends Thing implements Moveable {
   Ball(float x, float y) {
 
     super(x, y);
-    mode=int(random(3));
+    mode=int(random(4));
     xv = 1-random(2);
     yv = 1-random(2);
   }
