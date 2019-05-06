@@ -61,11 +61,24 @@ class Ball extends Thing implements Moveable {
 
   void display() {
     ellipseMode(RADIUS);
-    noStroke();
-    for(int i = 50; i >0; i--){
-      fill(5*i,255-(5*i),0);
-      ellipse(x,y,i,i);
+    switch(mode){
+      case 0:
+        fill(255,0,0);
+        break;
+      case 1:
+        fill(0,255,0);
+        break;
+      case 2:
+        fill(0,0,255);
+        break;
+      case 3:
+        fill(0,255,255);
+        break;
+      default:
+        fill(0);
+        break;
     }
+    ellipse(x,y,50,50);
   }
 
   void move() {
