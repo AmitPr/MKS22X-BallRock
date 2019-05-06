@@ -23,7 +23,11 @@ class Rock extends Thing {
 
   void display() {
     fill(75, 100, 75);
-    ellipse(x,y,20,20);
+    ellipse(x,y,40,20);
+    for(int i=0;i<10;i++){
+      fill(75+random(-6,6),100+random(-6,6),75+random(-6,6));
+      ellipse(x+random(-20,20),y+random(-10,10),random(-10,10),random(-10,10));
+    }
   }
 }
 
@@ -37,9 +41,14 @@ public class LivingRock extends Rock implements Moveable {
 }
 
 class Ball extends Thing implements Moveable {
+  int mode;
+  float xv,yv;
   Ball(float x, float y) {
 
     super(x, y);
+    mode=int(random(3));
+    xv = 1-random(2);
+    yv = 1-random(2);
   }
 
   void display() {
@@ -52,8 +61,28 @@ class Ball extends Thing implements Moveable {
   }
 
   void move() {
-    x+=0.5-random(1);
-    y+=0.5-random(1);
+    if(mode == 0){
+      x+=1-random(2);
+      y+=1-random(2);
+    }
+    if(mode == 1){
+      x+=xv;
+      if(x>width || x<0){
+        xv*=-1;
+      }
+      y+=yv;
+      if(y>height || y<0){
+        yv*=-1;
+      }
+    }
+    if(mode == 2){
+      //x+=xv;
+      y-=yv;
+      yv-=0.2;
+      if(y>height){
+        yv*=-0.6;
+      }
+    }
   }
 }
 
