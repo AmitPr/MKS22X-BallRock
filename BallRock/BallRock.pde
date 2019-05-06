@@ -17,16 +17,19 @@ abstract class Thing implements Displayable {
 }
 
 class Rock extends Thing {
+  float rMod,gMod,bMod,xMod,yMod,wid,hig;
   Rock(float x, float y) {
     super(x, y);
+    rMod=random(-6,6);gMod=random(-6,6);bMod=random(-6,6);
+    xMod=random(-20,20);yMod=random(-10,10);
+    wid=random(-10,10);hig=random(-10,10);
   }
-
   void display() {
     fill(75, 100, 75);
     ellipse(x,y,40,20);
-    for(int i=0;i<10;i++){
-      fill(75+random(-6,6),100+random(-6,6),75+random(-6,6));
-      ellipse(x+random(-20,20),y+random(-10,10),random(-10,10),random(-10,10));
+    for(int i=0;i<1;i++){
+      fill(75+rMod,100+gMod,75+bMod);
+      ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
 }
