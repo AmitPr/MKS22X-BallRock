@@ -2,6 +2,11 @@ interface Displayable {
   void display();
 }
 
+interface Collideable{
+  boolean isTouching(Thing other);
+  
+}
+
 interface Moveable {
   void move();
 }
@@ -72,17 +77,21 @@ public class LivingRock extends Rock implements Moveable {
 
 class Ball extends Thing implements Moveable {
   int mode;
-  float xv,yv;
+  float xv,yv,r,g,b;
   Ball(float x, float y) {
 
     super(x, y);
     mode=int(random(4));
     xv = 1-random(2);
     yv = 1-random(2);
+    r = random(255);
+    g = random(255);
+    b = random(255);
   }
 
   void display() {
     ellipseMode(RADIUS);
+    /*
     switch(mode){
       case 0:
         fill(255,0,0);
@@ -100,6 +109,8 @@ class Ball extends Thing implements Moveable {
         fill(0);
         break;
     }
+    */
+    fill(r,g,b);
     ellipse(x,y,50,50);
   }
 
