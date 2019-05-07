@@ -163,6 +163,25 @@ class Ball extends Thing implements Moveable  {
     }
   }
 }
+class GravityBall extends Ball {
+  GravityBall(float x, float y){
+    super(x,y);
+  }
+  void move(){
+      x+=xv;
+      if(x>width || x<0){
+        xv*=-1;
+      }
+      y-=yv;
+      if(yv>-16){
+        yv-=0.2;
+      }
+      
+      if(y>height){
+        yv*=-0.9;
+      }
+  }
+}
 
 /*DO NOT EDIT THE REST OF THIS */
 
@@ -176,9 +195,14 @@ void setup() {
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
   for (int i = 0; i < 10; i++) {
-    Ball b = new Ball(50+random(width-100), 50+random(height-100));
+    Ball b;
     thingsToDisplay.add(b);
     thingsToMove.add(b);
+    if(random(2)==0){
+      b=new Ball(50+random(width-100), 50+random(height-100));
+    }else{
+      b=new GravityBall(50+random(width-100), 50+random(height-100));
+    }
     Rock r = new Rock(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(r);
   }
