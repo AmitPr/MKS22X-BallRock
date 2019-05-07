@@ -34,17 +34,15 @@ class Rock extends Thing implements Collideable {
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
-<<<<<<< HEAD
-  
   boolean isTouching(Thing other){
     if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
      return true; 
     }
     return false;
-=======
+  }
+  
   void display(){
     image(dwayne,x,y,30,40);
->>>>>>> 08a6c3b08e0c2d8646c93a8def0fe8663f7f9143
   }
 }
 
