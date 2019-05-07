@@ -34,20 +34,13 @@ class Rock extends Thing implements Collideable {
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
-<<<<<<< HEAD
-=======
-  
->>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
   boolean isTouching(Thing other){
     if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
      return true; 
     }
     return false;
-<<<<<<< HEAD
   }
   
-=======
->>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
   void display(){
     image(dwayne,x,y,30,40);
   }
@@ -204,13 +197,13 @@ void setup() {
   thingsToMove = new ArrayList<Moveable>();
   for (int i = 0; i < 10; i++) {
     Ball b;
-    thingsToDisplay.add(b);
-    thingsToMove.add(b);
-    if(random(2)==0){
+    if(i < 5){
       b=new Ball(50+random(width-100), 50+random(height-100));
     }else{
       b=new GravityBall(50+random(width-100), 50+random(height-100));
     }
+    thingsToDisplay.add(b);
+    thingsToMove.add(b);
     Rock r = new Rock(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(r);
   }
