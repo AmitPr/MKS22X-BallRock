@@ -39,7 +39,9 @@ public class LivingRock extends Rock implements Moveable {
   float circleRadius = random(50, 200);
   float timeMultiplier = random(0.001, 0.003);
   
-  PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width, height)};
+  int randomStart = int(random(4));
+  
+  PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
   
   LivingRock(float x, float y) {
     super(x, y);
@@ -51,7 +53,17 @@ public class LivingRock extends Rock implements Moveable {
     //x = width / 2 + (circleRadius * cos(timeMultiplier * millis()));
     //y = height / 2 + (circleRadius * sin(timeMultiplier * millis()));
     
-    float seconds = millis() / 1000;
+    float millisPerPath = 2000;
+    
+    float seconds = millis() / millisPerPath;
+    float t = seconds % 1;
+    int idx = (int) ((seconds + randomStart) % path.length);
+    PVector p1 = path[idx];
+    PVector p2 = path[(idx + 1) % path.length];
+    
+    PVector newPos = lerpVec(p1, p2, t);
+    x = newPos.x;
+    y = newPos.y;
   }
   
   private PVector lerpVec(PVector a, PVector b, float t) {
