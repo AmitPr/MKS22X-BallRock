@@ -126,17 +126,18 @@ class Ball extends Thing implements Moveable  {
   }
 
   void move() {
+    /*
     if(mode == 0){
       x+=1-random(2);
       y+=1-random(2);
     }
     if(mode == 1){
       x+=xv;
-      if(x>width || x<0){
+      if(x+25>width || x-25<0){
         xv*=-1;
       }
       y+=yv;
-      if(y>height || y<0){
+      if(y+25>height || y-25<0){
         yv*=-1;
       }
     }
@@ -166,6 +167,7 @@ class Ball extends Thing implements Moveable  {
         yv*=-1;
       }
     }
+    */
   }
 }
 class GravityBall extends Ball {
@@ -174,16 +176,30 @@ class GravityBall extends Ball {
   }
   void move(){
       x+=xv;
-      if(x>width || x<0){
+      if(x+50>width || x-50<0){
         xv*=-1;
       }
       y-=yv;
-      if(yv>-16){
-        yv-=0.2;
-      }
+      yv-=0.2;
       
-      if(y>height){
-        yv*=-0.9;
+      if(y+50>height){
+        yv*=-0.8 - random(0.3);
+        y=height-50;
+      }
+  }
+}
+class PongBall extends Ball {
+  PongBall(float x, float y){
+    super(x,y);
+  }
+  void move(){
+      x+=xv;
+      if(x+50>width || x-50<0){
+        xv*=-1;
+      }
+      y+=yv;
+      if(y+50>height || y-50<0){
+        yv*=-1;
       }
   }
 }
@@ -203,7 +219,7 @@ void setup() {
   for (int i = 0; i < 10; i++) {
     Ball b;
     if(i < 5){
-      b=new Ball(50+random(width-100), 50+random(height-100));
+      b=new PongBall(50+random(width-100), 50+random(height-100));
     }else{
       b=new GravityBall(50+random(width-100), 50+random(height-100));
     }
