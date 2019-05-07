@@ -10,7 +10,7 @@ interface Moveable {
   void move();
 }
 
-abstract class Thing implements Displayable, Collideable {
+abstract class Thing implements Displayable {
   float x, y;//Position of the Thing
   Thing(float x, float y) {
     this.x = x;
@@ -34,13 +34,20 @@ class Rock extends Thing implements Collideable {
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
   boolean isTouching(Thing other){
     if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
      return true; 
     }
     return false;
+<<<<<<< HEAD
   }
   
+=======
+>>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
   void display(){
     image(dwayne,x,y,30,40);
   }
