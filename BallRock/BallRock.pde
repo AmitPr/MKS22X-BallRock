@@ -21,8 +21,10 @@ abstract class Thing implements Displayable {
 
 class Rock extends Thing implements Collideable {
   float rMod,gMod,bMod,xMod,yMod,wid,hig;
+  int type;
   Rock(float x, float y) {
     super(x, y);
+    type = (int)random(2);
     rMod=random(-16,16);gMod=random(-16,16);bMod=random(-16,16);
     xMod=random(-20,20);yMod=random(-10,10);
     wid=random(-10,10);hig=random(-10,10);
@@ -34,22 +36,18 @@ class Rock extends Thing implements Collideable {
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
-<<<<<<< HEAD
-=======
-  
->>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
+
   boolean isTouching(Thing other){
     if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
      return true; 
     }
     return false;
-<<<<<<< HEAD
   }
-  
-=======
->>>>>>> f68969d6cf2f7e3a2b887498bd1ff88d102efc95
   void display(){
-    image(dwayne,x,y,30,40);
+    if(type==0)
+      image(dwayne,x,y,30,40);
+    else
+      image(stone,x,y,40,40);
   }
 }
 
@@ -176,10 +174,11 @@ class Ball extends Thing implements Moveable  {
 
 ArrayList<Displayable> thingsToDisplay;
 ArrayList<Moveable> thingsToMove;
-PImage dwayne;
+PImage dwayne,stone;
 
 void setup() {
   size(1000, 800);
+  stone = loadImage("stone.png");
   dwayne = loadImage("Dwayne-Johnson-Variety--e1505509144619.png");
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
