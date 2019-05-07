@@ -20,15 +20,14 @@ class Rock extends Thing {
   float rMod,gMod,bMod,xMod,yMod,wid,hig;
   Rock(float x, float y) {
     super(x, y);
-    rMod=random(-6,6);gMod=random(-6,6);bMod=random(-6,6);
+    rMod=random(-16,16);gMod=random(-16,16);bMod=random(-16,16);
     xMod=random(-20,20);yMod=random(-10,10);
     wid=random(-10,10);hig=random(-10,10);
   }
   void display() {
-    fill(75, 100, 75);
+    fill(75+rMod, 100+gMod, 75+bMod);
     ellipse(x,y,40,20);
     for(int i=0;i<1;i++){
-      fill(75+rMod,100+gMod,75+bMod);
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
