@@ -6,6 +6,7 @@ interface Moveable {
   void move();
 }
 
+
 abstract class Thing implements Displayable {
   float x, y;//Position of the Thing
 
@@ -24,12 +25,15 @@ class Rock extends Thing {
     xMod=random(-20,20);yMod=random(-10,10);
     wid=random(-10,10);hig=random(-10,10);
   }
-  void display() {
+  void display_old() {
     fill(75+rMod, 100+gMod, 75+bMod);
     ellipse(x,y,40,20);
     for(int i=0;i<1;i++){
       ellipse(x+xMod,y+yMod,wid,hig);
     }
+  }
+  void display(){
+    image(dwayne,x,y,30,40);
   }
 }
 
@@ -151,10 +155,11 @@ class Ball extends Thing implements Moveable {
 
 ArrayList<Displayable> thingsToDisplay;
 ArrayList<Moveable> thingsToMove;
+PImage dwayne;
 
 void setup() {
   size(1000, 800);
-
+  dwayne = loadImage("Dwayne-Johnson-Variety--e1505509144619.png");
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
   for (int i = 0; i < 10; i++) {
