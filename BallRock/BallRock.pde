@@ -4,16 +4,14 @@ interface Displayable {
 
 interface Collideable{
   boolean isTouching(Thing other);
-  
 }
 
 interface Moveable {
   void move();
 }
 
-abstract class Thing implements Displayable {
+abstract class Thing implements Displayable, Collideable {
   float x, y;//Position of the Thing
-
   Thing(float x, float y) {
     this.x = x;
     this.y = y;
@@ -21,7 +19,7 @@ abstract class Thing implements Displayable {
   abstract void display();
 }
 
-class Rock extends Thing {
+class Rock extends Thing implements Collideable {
   float rMod,gMod,bMod,xMod,yMod,wid,hig;
   Rock(float x, float y) {
     super(x, y);
@@ -35,6 +33,13 @@ class Rock extends Thing {
     for(int i=0;i<1;i++){
       ellipse(x+xMod,y+yMod,wid,hig);
     }
+  }
+  
+  boolean isTouching(Thing other){
+    if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
+     return true; 
+    }
+    return false;
   }
 }
 
@@ -75,11 +80,10 @@ public class LivingRock extends Rock implements Moveable {
   }
 }
 
-class Ball extends Thing implements Moveable {
+class Ball extends Thing implements Moveable  {
   int mode;
   float xv,yv,r,g,b;
   Ball(float x, float y) {
-
     super(x, y);
     mode=int(random(4));
     xv = 1-random(2);
