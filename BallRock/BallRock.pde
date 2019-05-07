@@ -10,11 +10,7 @@ interface Moveable {
   void move();
 }
 
-<<<<<<< HEAD
 abstract class Thing implements Displayable {
-=======
-abstract class Thing implements Displayable, Collideable {
->>>>>>> bf7af85ae1ac79a4ac65d1421c015663daa5cf85
   float x, y;//Position of the Thing
   Thing(float x, float y) {
     this.x = x;
