@@ -9,3 +9,7 @@ Coby and Greg work on rock changes
 Coby/Greg: Messed with old rock display a bit before moving on to image based. Completed 2 display modes, randomly selected on construction  
 Alvi: Programmed collide-able interface  
 Amit: Created two  ball subclasses (GravityBall/PongBall) & changed setup method. Balls turn red when touching rocks  
+
+Day 3:
+Greg added linear (straight) and quadratic interpolated (smooth) movement to the living rock
+Coby changed rock sizes and fixed syntax (int==1 changed into boolean). Also added eyes to Dwayne, and eyes in a different place to Stone.
