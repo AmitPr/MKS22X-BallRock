@@ -55,11 +55,22 @@ public class LivingRock extends Rock implements Moveable {
   
   int randomStart = int(random(4));
   
-  PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
+  //PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
+  
+  //PVector[] path = new PVector[] {new PVector(50, 10), new PVector(width-10, 30), new PVector(width-10, height-10), new PVector(width/2, height/2)};
+  
+  PVector[] path;
+  
   
   LivingRock(float x, float y) {
     super(x, y);
+    
+    path = new PVector[12];
+    for (int i = 0; i < path.length; i++) {
+      path[i] = new PVector(random(0, width), random(0, height));
+    }
   }
+<<<<<<< HEAD
   void display(){
     int eyeH=4;int eyeW=6; int eyeY=28; int leftEyeX=10; int rightEyeX=28;
     if(isStone){
@@ -72,7 +83,14 @@ public class LivingRock extends Rock implements Moveable {
     fill(0);
     ellipse(x+leftEyeX,y+eyeY, 2,2);ellipse(x+rightEyeX,y+eyeY, 2,2);
   }
+=======
+  
+  int prevIndex = -1;
+  int incrementer = 0;
+  
+>>>>>>> 90eab903aba900509fded0ffe0cd53d7876618bf
   void move() {
+    
     //x += random(-3, 3);
     //y += random(-3, 3);
         
@@ -83,13 +101,21 @@ public class LivingRock extends Rock implements Moveable {
     
     float seconds = millis() / millisPerPath;
     float t = seconds % 1;
-    int idx = (int) ((seconds + randomStart) % path.length);
+    int origIdx = (int) ((seconds + randomStart) % path.length);
+    if (origIdx != prevIndex) incrementer++;
+    int idx = origIdx + incrementer;
+    idx = idx % path.length;
     PVector p1 = path[idx];
     PVector p2 = path[(idx + 1) % path.length];
+    PVector p3 = path[(idx + 2) % path.length];
     
-    PVector newPos = lerpVec(p1, p2, t);
+    PVector lerped1 = lerpVec(p1, p2, t);
+    PVector lerped2 = lerpVec(p2, p3, t);
+    PVector newPos = lerpVec(lerped1, lerped2, t);
     x = newPos.x;
     y = newPos.y;
+    
+    prevIndex = origIdx;
   }
   
   private PVector lerpVec(PVector a, PVector b, float t) {
@@ -109,24 +135,27 @@ class Ball extends Thing implements Moveable  {
     g = random(255);
     b = random(255);
   }
+  void changeFill(){}
 
   void display() {
     ellipseMode(RADIUS);
-        fill(r,g,b);
+    changeFill();
+    ellipse(x,y,50,50);
+  }
+  void move() {}
+  
+}
+class GravityBall extends Ball {
+  GravityBall(float x, float y){
+    super(x,y);
+  }
+  void changeFill(){
+    fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
       }
     }
-    ellipse(x,y,50,50);
-  }
-
-  void move() {
-  }
-}
-class GravityBall extends Ball {
-  GravityBall(float x, float y){
-    super(x,y);
   }
   void move(){
       x+=xv;
@@ -145,6 +174,16 @@ class GravityBall extends Ball {
 class PongBall extends Ball {
   PongBall(float x, float y){
     super(x,y);
+    xv*=random(20);
+    yv*=random(20);
+  }
+  void changeFill(){
+    fill(r,g,b);
+    for(Collideable c : thingsToCollide){
+      if(c.isTouching(this)){
+        fill(0,0,255);
+      }
+    }
   }
   void move(){
       x+=xv;
