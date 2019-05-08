@@ -112,7 +112,8 @@ class GravityBall extends Ball {
     super(x,y);
   }
   void changeFill(){
-    fill(r,g,b);
+    fill(lerp(0,255,x/width),lerp(0,255,y/height),lerp(0,255,((x/width)+(y/height))/2));
+    //fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
