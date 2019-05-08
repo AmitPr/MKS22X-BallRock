@@ -36,7 +36,6 @@ class Rock extends Thing implements Collideable {
       ellipse(x+xMod,y+yMod,wid,hig);
     }
   }
-
   boolean isTouching(Thing other){
     if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
      return true; 
@@ -103,70 +102,16 @@ class Ball extends Thing implements Moveable  {
 
   void display() {
     ellipseMode(RADIUS);
-    /*
-    switch(mode){
-      case 0:
+        fill(r,g,b);
+    for(Collideable c : thingsToCollide){
+      if(c.isTouching(this)){
         fill(255,0,0);
-        break;
-      case 1:
-        fill(0,255,0);
-        break;
-      case 2:
-        fill(0,0,255);
-        break;
-      case 3:
-        fill(0,255,255);
-        break;
-      default:
-        fill(0);
-        break;
+      }
     }
-    */
-    fill(r,g,b);
     ellipse(x,y,50,50);
   }
 
   void move() {
-    if(mode == 0){
-      x+=1-random(2);
-      y+=1-random(2);
-    }
-    if(mode == 1){
-      x+=xv;
-      if(x>width || x<0){
-        xv*=-1;
-      }
-      y+=yv;
-      if(y>height || y<0){
-        yv*=-1;
-      }
-    }
-    if(mode == 2){
-      x+=xv;
-      if(x>width || x<0){
-        xv*=-1;
-      }
-      y-=yv;
-      if(yv>-16){
-        yv-=0.2;
-      }
-      
-      if(y>height){
-        yv*=-0.9;
-      }
-    }
-    if(mode == 3){
-      xv-=0.5-random(1);
-      yv-=0.5-random(1);
-      x+=xv;
-      if(x>width || x<0){
-        xv*=-1;
-      }
-      y+=yv;
-      if(y>height || y<0){
-        yv*=-1;
-      }
-    }
   }
 }
 class GravityBall extends Ball {
@@ -175,16 +120,30 @@ class GravityBall extends Ball {
   }
   void move(){
       x+=xv;
-      if(x>width || x<0){
+      if(x+50>width || x-50<0){
         xv*=-1;
       }
       y-=yv;
-      if(yv>-16){
-        yv-=0.2;
-      }
+      yv-=0.2;
       
-      if(y>height){
-        yv*=-0.9;
+      if(y+50>height){
+        yv*=-0.8 - random(0.3);
+        y=height-50;
+      }
+  }
+}
+class PongBall extends Ball {
+  PongBall(float x, float y){
+    super(x,y);
+  }
+  void move(){
+      x+=xv;
+      if(x+50>width || x-50<0){
+        xv*=-1;
+      }
+      y+=yv;
+      if(y+50>height || y-50<0){
+        yv*=-1;
       }
   }
 }
@@ -193,6 +152,7 @@ class GravityBall extends Ball {
 
 ArrayList<Displayable> thingsToDisplay;
 ArrayList<Moveable> thingsToMove;
+ArrayList<Collideable> thingsToCollide;
 PImage dwayne,stone;
 
 void setup() {
@@ -201,17 +161,19 @@ void setup() {
   dwayne = loadImage("Dwayne-Johnson-Variety--e1505509144619.png");
   thingsToDisplay = new ArrayList<Displayable>();
   thingsToMove = new ArrayList<Moveable>();
+  thingsToCollide = new ArrayList<Collideable>();
   for (int i = 0; i < 10; i++) {
     Ball b;
-    thingsToDisplay.add(b);
-    thingsToMove.add(b);
-    if(random(2)==0){
-      b=new Ball(50+random(width-100), 50+random(height-100));
+    if(i < 5){
+      b=new PongBall(50+random(width-100), 50+random(height-100));
     }else{
       b=new GravityBall(50+random(width-100), 50+random(height-100));
     }
+    thingsToDisplay.add(b);
+    thingsToMove.add(b);
     Rock r = new Rock(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(r);
+    thingsToCollide.add(r);
   }
   for (int i = 0; i < 3; i++) {
     LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100));
