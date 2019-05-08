@@ -35,7 +35,7 @@ class Rock extends Thing implements Collideable {
     }
   }*/
   boolean isTouching(Thing other){
-    if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
+    if(dist(other.x,other.y,x,y)<=50){
      return true; 
     }
     return false;
