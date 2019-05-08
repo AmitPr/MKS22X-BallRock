@@ -20,24 +20,22 @@ abstract class Thing implements Displayable {
 }
 
 class Rock extends Thing implements Collideable {
-  float rMod,gMod,bMod,xMod,yMod,wid,hig;
+  //float rMod,gMod,bMod,xMod,yMod,wid,hig;
   int type;
   Rock(float x, float y) {
     super(x, y);
     type = (int)random(2);
-    rMod=random(-16,16);gMod=random(-16,16);bMod=random(-16,16);
-    xMod=random(-20,20);yMod=random(-10,10);
-    wid=random(-10,10);hig=random(-10,10);
+    //rMod=random(-16,16);gMod=random(-16,16);bMod=random(-16,16);xMod=random(-20,20);yMod=random(-10,10);wid=random(-10,10);hig=random(-10,10);
   }
-  void display_old() {
+  /*void display_old() {
     fill(75+rMod, 100+gMod, 75+bMod);
     ellipse(x,y,40,20);
     for(int i=0;i<1;i++){
       ellipse(x+xMod,y+yMod,wid,hig);
     }
-  }
+  }*/
   boolean isTouching(Thing other){
-    if(sqrt(pow((other.x-x),2) + pow((other.y-y),2))<=50){
+    if(dist(other.x,other.y,x,y)<=50){
      return true; 
     }
     return false;
@@ -115,24 +113,27 @@ class Ball extends Thing implements Moveable  {
     g = random(255);
     b = random(255);
   }
+  void changeFill(){}
 
   void display() {
     ellipseMode(RADIUS);
-        fill(r,g,b);
+    changeFill();
+    ellipse(x,y,50,50);
+  }
+  void move() {}
+  
+}
+class GravityBall extends Ball {
+  GravityBall(float x, float y){
+    super(x,y);
+  }
+  void changeFill(){
+    fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
       }
     }
-    ellipse(x,y,50,50);
-  }
-
-  void move() {
-  }
-}
-class GravityBall extends Ball {
-  GravityBall(float x, float y){
-    super(x,y);
   }
   void move(){
       x+=xv;
@@ -151,6 +152,16 @@ class GravityBall extends Ball {
 class PongBall extends Ball {
   PongBall(float x, float y){
     super(x,y);
+    xv*=random(20);
+    yv*=random(20);
+  }
+  void changeFill(){
+    fill(r,g,b);
+    for(Collideable c : thingsToCollide){
+      if(c.isTouching(this)){
+        fill(0,0,255);
+      }
+    }
   }
   void move(){
       x+=xv;
