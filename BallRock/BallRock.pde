@@ -70,8 +70,7 @@ public class LivingRock extends Rock implements Moveable {
       path[i] = new PVector(random(0, width), random(0, height));
     }
   }
-<<<<<<< HEAD
-  void display(){
+void display(){
     int eyeH=4;int eyeW=6; int eyeY=28; int leftEyeX=10; int rightEyeX=28;
     if(isStone){
       leftEyeX=15;rightEyeX=35; eyeY=15;
@@ -83,12 +82,9 @@ public class LivingRock extends Rock implements Moveable {
     fill(0);
     ellipse(x+leftEyeX,y+eyeY, 2,2);ellipse(x+rightEyeX,y+eyeY, 2,2);
   }
-=======
   
   int prevIndex = -1;
   int incrementer = 0;
-  
->>>>>>> 90eab903aba900509fded0ffe0cd53d7876618bf
   void move() {
     
     //x += random(-3, 3);
