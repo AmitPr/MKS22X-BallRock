@@ -55,20 +55,27 @@ public class LivingRock extends Rock implements Moveable {
   
   int randomStart = int(random(4));
   
-  PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
+  //PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
   
   //PVector[] path = new PVector[] {new PVector(50, 10), new PVector(width-10, 30), new PVector(width-10, height-10), new PVector(width/2, height/2)};
   
+  PVector[] path;
   
   
   LivingRock(float x, float y) {
     super(x, y);
+    
+    path = new PVector[12];
+    for (int i = 0; i < path.length; i++) {
+      path[i] = new PVector(random(0, width), random(0, height));
+    }
   }
   
   int prevIndex = -1;
   int incrementer = 0;
   
   void move() {
+    
     //x += random(-3, 3);
     //y += random(-3, 3);
         
@@ -196,13 +203,13 @@ void setup() {
     }else{
       b=new GravityBall(50+random(width-100), 50+random(height-100));
     }
-    //thingsToDisplay.add(b);
-    //thingsToMove.add(b);
+    thingsToDisplay.add(b);
+    thingsToMove.add(b);
     Rock r = new Rock(50+random(width-100), 50+random(height-100));
-    //thingsToDisplay.add(r);
-    //thingsToCollide.add(r);
+    thingsToDisplay.add(r);
+    thingsToCollide.add(r);
   }
-  for (int i = 0; i < 1; i++) {
+  for (int i = 0; i < 3; i++) {
     LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(m);
     thingsToMove.add(m);
