@@ -59,9 +59,17 @@ public class LivingRock extends Rock implements Moveable {
   
   PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
   
+  //PVector[] path = new PVector[] {new PVector(50, 10), new PVector(width-10, 30), new PVector(width-10, height-10), new PVector(width/2, height/2)};
+  
+  
+  
   LivingRock(float x, float y) {
     super(x, y);
   }
+  
+  int prevIndex = -1;
+  int incrementer = 0;
+  
   void move() {
     //x += random(-3, 3);
     //y += random(-3, 3);
@@ -73,13 +81,21 @@ public class LivingRock extends Rock implements Moveable {
     
     float seconds = millis() / millisPerPath;
     float t = seconds % 1;
-    int idx = (int) ((seconds + randomStart) % path.length);
+    int origIdx = (int) ((seconds + randomStart) % path.length);
+    if (origIdx != prevIndex) incrementer++;
+    int idx = origIdx + incrementer;
+    idx = idx % path.length;
     PVector p1 = path[idx];
     PVector p2 = path[(idx + 1) % path.length];
+    PVector p3 = path[(idx + 2) % path.length];
     
-    PVector newPos = lerpVec(p1, p2, t);
+    PVector lerped1 = lerpVec(p1, p2, t);
+    PVector lerped2 = lerpVec(p2, p3, t);
+    PVector newPos = lerpVec(lerped1, lerped2, t);
     x = newPos.x;
     y = newPos.y;
+    
+    prevIndex = origIdx;
   }
   
   private PVector lerpVec(PVector a, PVector b, float t) {
@@ -169,13 +185,13 @@ void setup() {
     }else{
       b=new GravityBall(50+random(width-100), 50+random(height-100));
     }
-    thingsToDisplay.add(b);
-    thingsToMove.add(b);
+    //thingsToDisplay.add(b);
+    //thingsToMove.add(b);
     Rock r = new Rock(50+random(width-100), 50+random(height-100));
-    thingsToDisplay.add(r);
-    thingsToCollide.add(r);
+    //thingsToDisplay.add(r);
+    //thingsToCollide.add(r);
   }
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 1; i++) {
     LivingRock m = new LivingRock(50+random(width-100), 50+random(height-100));
     thingsToDisplay.add(m);
     thingsToMove.add(m);
