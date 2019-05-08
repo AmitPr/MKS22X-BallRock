@@ -135,6 +135,8 @@ class GravityBall extends Ball {
 class PongBall extends Ball {
   PongBall(float x, float y){
     super(x,y);
+    xv*=random(50);
+    yv*=random(50);
   }
   void move(){
       x+=xv;
