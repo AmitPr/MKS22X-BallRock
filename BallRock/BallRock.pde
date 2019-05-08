@@ -97,24 +97,27 @@ class Ball extends Thing implements Moveable  {
     g = random(255);
     b = random(255);
   }
+  void changeFill(){}
 
   void display() {
     ellipseMode(RADIUS);
-        fill(r,g,b);
+    changeFill();
+    ellipse(x,y,50,50);
+  }
+  void move() {}
+  
+}
+class GravityBall extends Ball {
+  GravityBall(float x, float y){
+    super(x,y);
+  }
+  void changeFill(){
+    fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
       }
     }
-    ellipse(x,y,50,50);
-  }
-
-  void move() {
-  }
-}
-class GravityBall extends Ball {
-  GravityBall(float x, float y){
-    super(x,y);
   }
   void move(){
       x+=xv;
@@ -133,8 +136,16 @@ class GravityBall extends Ball {
 class PongBall extends Ball {
   PongBall(float x, float y){
     super(x,y);
-    xv*=random(50);
-    yv*=random(50);
+    xv*=random(20);
+    yv*=random(20);
+  }
+  void changeFill(){
+    fill(r,g,b);
+    for(Collideable c : thingsToCollide){
+      if(c.isTouching(this)){
+        fill(0,0,255);
+      }
+    }
   }
   void move(){
       x+=xv;
