@@ -70,7 +70,8 @@ public class LivingRock extends Rock implements Moveable {
       path[i] = new PVector(random(0, width), random(0, height));
     }
   }
-  void display(){
+
+void display(){
     int eyeH=4;int eyeW=6; int eyeY=28; int leftEyeX=10; int rightEyeX=28;
     if(isStone){
       leftEyeX=15;rightEyeX=35; eyeY=15;
@@ -85,7 +86,7 @@ public class LivingRock extends Rock implements Moveable {
   
   int prevIndex = -1;
   int incrementer = 0;
-  
+
   void move() {
     
     //x += random(-3, 3);
@@ -147,7 +148,8 @@ class GravityBall extends Ball {
     super(x,y);
   }
   void changeFill(){
-    fill(r,g,b);
+    fill(lerp(0,255,x/width),lerp(0,255,y/height),lerp(0,255,((x/width)+(y/height))/2));
+    //fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
