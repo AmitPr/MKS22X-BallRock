@@ -13,3 +13,6 @@ Amit: Created two  ball subclasses (GravityBall/PongBall) & changed setup method
 Day 3:
 Greg added linear (straight) and quadratic interpolated (smooth) movement to the living rock
 Coby changed rock sizes and fixed syntax (int==1 changed into boolean). Also added eyes to Dwayne, and eyes in a different place to Stone.
+Mario: Fixed Collisions, and started to differentiate PongBall from GravityBall
+Amit: Added more interesting Coloring to GravityBall, helped fix collisions
+Alvi: Started making PongBall have a "bounce" animation
