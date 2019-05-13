@@ -21,10 +21,10 @@ abstract class Thing implements Displayable {
 
 class Rock extends Thing implements Collideable {
   //float rMod,gMod,bMod,xMod,yMod,wid,hig;
-  int type;
+  boolean isStone;
   Rock(float x, float y) {
     super(x, y);
-    type = (int)random(2);
+    isStone = 1>random(2);
     //rMod=random(-16,16);gMod=random(-16,16);bMod=random(-16,16);xMod=random(-20,20);yMod=random(-10,10);wid=random(-10,10);hig=random(-10,10);
   }
   /*void display_old() {
@@ -41,10 +41,10 @@ class Rock extends Thing implements Collideable {
     return false;
   }
   void display(){
-    if(type==0)
-      image(dwayne,x,y,30,40);
+    if(!isStone)
+      image(dwayne,x,y,50,70);
     else
-      image(stone,x,y,40,40);
+      image(stone,x,y,50,50);
   }
 }
 
@@ -70,10 +70,23 @@ public class LivingRock extends Rock implements Moveable {
     
     mode = (int) random(0, 3);
   }
+
+void display(){
+    int eyeH=4;int eyeW=6; int eyeY=28; int leftEyeX=10; int rightEyeX=28;
+    if(isStone){
+      leftEyeX=15;rightEyeX=35; eyeY=15;
+    }
+    ellipseMode(RADIUS);
+    super.display();
+    fill(255);
+    ellipse(x+leftEyeX,y+eyeY,eyeW,eyeH);ellipse(x+rightEyeX,y+eyeY,eyeW,eyeH);
+    fill(0);
+    ellipse(x+leftEyeX,y+eyeY, 2,2);ellipse(x+rightEyeX,y+eyeY, 2,2);
+  }
   
   int prevIndex = -1;
   int incrementer = 0;
-  
+
   void move() {
     
     if (mode == 0) {
@@ -139,7 +152,8 @@ class GravityBall extends Ball {
     super(x,y);
   }
   void changeFill(){
-    fill(r,g,b);
+    fill(lerp(0,255,x/width),lerp(0,255,y/height),lerp(0,255,((x/width)+(y/height))/2));
+    //fill(r,g,b);
     for(Collideable c : thingsToCollide){
       if(c.isTouching(this)){
         fill(255,0,0);
