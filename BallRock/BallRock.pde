@@ -35,7 +35,7 @@ class Rock extends Thing implements Collideable {
     }
   }*/
   boolean isTouching(Thing other){
-    if(dist(other.x,other.y,x,y)<=50){
+    if(dist(other.x,other.y,x+25,y+30)<=60){
      return true; 
     }
     return false;
@@ -95,29 +95,32 @@ void display(){
     }
     
     else if (mode == 1) {
-      x = width / 2 + (circleRadius * cos(timeMultiplier * millis()));
+      x = width / 2 + (circleRadius * 1.5 * cos(timeMultiplier * millis()));
       y = height / 2 + (circleRadius * sin(timeMultiplier * millis()));
     }
     
-    float millisPerPath = 2000;
+    else {
     
-    float seconds = millis() / millisPerPath;
-    float t = seconds % 1;
-    int origIdx = (int) ((seconds + randomStart) % path.length);
-    if (origIdx != prevIndex) incrementer++;
-    int idx = origIdx + incrementer;
-    idx = idx % path.length;
-    PVector p1 = path[idx];
-    PVector p2 = path[(idx + 1) % path.length];
-    PVector p3 = path[(idx + 2) % path.length];
-    
-    PVector lerped1 = lerpVec(p1, p2, t);
-    PVector lerped2 = lerpVec(p2, p3, t);
-    PVector newPos = lerpVec(lerped1, lerped2, t);
-    x = newPos.x;
-    y = newPos.y;
-    
-    prevIndex = origIdx;
+      float millisPerPath = 2000;
+      
+      float seconds = millis() / millisPerPath;
+      float t = seconds % 1;
+      int origIdx = (int) ((seconds + randomStart) % path.length);
+      if (origIdx != prevIndex) incrementer++;
+      int idx = origIdx + incrementer;
+      idx = idx % path.length;
+      PVector p1 = path[idx];
+      PVector p2 = path[(idx + 1) % path.length];
+      PVector p3 = path[(idx + 2) % path.length];
+      
+      PVector lerped1 = lerpVec(p1, p2, t);
+      PVector lerped2 = lerpVec(p2, p3, t);
+      PVector newPos = lerpVec(lerped1, lerped2, t);
+      x = newPos.x;
+      y = newPos.y;
+      
+      prevIndex = origIdx;
+    }
   }
   
   private PVector lerpVec(PVector a, PVector b, float t) {
@@ -137,7 +140,13 @@ class Ball extends Thing implements Moveable  {
     g = random(255);
     b = random(255);
   }
-  void changeFill(){}
+  void changeFill(){
+    for(Collideable c : thingsToCollide){
+      if(c.isTouching(this)){
+        fill(255,0,0);
+      }
+    }
+  }
 
   void display() {
     ellipseMode(RADIUS);
@@ -154,11 +163,7 @@ class GravityBall extends Ball {
   void changeFill(){
     fill(lerp(0,255,x/width),lerp(0,255,y/height),lerp(0,255,((x/width)+(y/height))/2));
     //fill(r,g,b);
-    for(Collideable c : thingsToCollide){
-      if(c.isTouching(this)){
-        fill(255,0,0);
-      }
-    }
+    super.changeFill();
   }
   void move(){
       x+=xv;
@@ -182,11 +187,7 @@ class PongBall extends Ball {
   }
   void changeFill(){
     fill(r,g,b);
-    for(Collideable c : thingsToCollide){
-      if(c.isTouching(this)){
-        fill(0,0,255);
-      }
-    }
+    super.changeFill();
   }
   void move(){
       x+=xv;
