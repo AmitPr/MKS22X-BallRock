@@ -55,9 +55,7 @@ public class LivingRock extends Rock implements Moveable {
   
   int randomStart = int(random(4));
   
-  //PVector[] path = new PVector[] {new PVector(0, 0), new PVector(width/2, height/2), new PVector(width/3, 2 * height/3), new PVector(width/5, 7*height/8), new PVector(4*width/5, 1*height/8), new PVector(width, height)};
-  
-  //PVector[] path = new PVector[] {new PVector(50, 10), new PVector(width-10, 30), new PVector(width-10, height-10), new PVector(width/2, height/2)};
+  int mode;
   
   PVector[] path;
   
@@ -69,6 +67,8 @@ public class LivingRock extends Rock implements Moveable {
     for (int i = 0; i < path.length; i++) {
       path[i] = new PVector(random(0, width), random(0, height));
     }
+    
+    mode = (int) random(0, 3);
   }
   
   int prevIndex = -1;
@@ -76,11 +76,15 @@ public class LivingRock extends Rock implements Moveable {
   
   void move() {
     
-    //x += random(-3, 3);
-    //y += random(-3, 3);
-        
-    //x = width / 2 + (circleRadius * cos(timeMultiplier * millis()));
-    //y = height / 2 + (circleRadius * sin(timeMultiplier * millis()));
+    if (mode == 0) {
+      x += random(-3, 3);
+      y += random(-3, 3);
+    }
+    
+    else if (mode == 1) {
+      x = width / 2 + (circleRadius * cos(timeMultiplier * millis()));
+      y = height / 2 + (circleRadius * sin(timeMultiplier * millis()));
+    }
     
     float millisPerPath = 2000;
     
